@@ -10,4 +10,3 @@ alias la='ls -la --color=auto'
 alias neofetch='neofetch --source /home/hansel/.config/neofetch/arch.txt'
 PS1='[\u@\h \W]\$ '
 neofetch --source /home/hansel/.config/neofetch/arch.txt
-eval "$(starship init bash)"
