@@ -17,6 +17,9 @@ Print
 alt + Escape
 	pkill -USR1 -x sxhkd
 
+# hide active window (need xdotool)
+alt + m
+	./.config/sxhkd/hide-unhide.sh
 #
 # bspwm hotkeys
 #
@@ -30,8 +33,8 @@ alt + q
 	bspc node -c
 
 # alternate between the tiled and monocle layout
-alt + m
-	bspc desktop -l next
+#alt + m
+#	bspc desktop -l next
 
 # send the newest marked node to the newest preselected node
 alt + y
