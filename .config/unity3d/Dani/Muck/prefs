@@ -1,0 +1,14 @@
+<unity_prefs version_major="1" version_minor="1">
+	<pref name="Screenmanager Fullscreen mode" type="int">0</pref>
+	<pref name="Screenmanager Fullscreen mode Default" type="int">1</pref>
+	<pref name="Screenmanager Resolution Height" type="int">900</pref>
+	<pref name="Screenmanager Resolution Height Default" type="int">1080</pref>
+	<pref name="Screenmanager Resolution Use Native" type="int">1</pref>
+	<pref name="Screenmanager Resolution Use Native Default" type="int">1</pref>
+	<pref name="Screenmanager Resolution Width" type="int">1440</pref>
+	<pref name="Screenmanager Resolution Width Default" type="int">1920</pref>
+	<pref name="UnitySelectMonitor" type="int">0</pref>
+	<pref name="save" type="string">PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTE2Ij8+CjxQbGF5ZXJTYXZlIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiPgogIDxjYW1lcmFTaGFrZT50cnVlPC9jYW1lcmFTaGFrZT4KICA8Zm92Pjg1PC9mb3Y+CiAgPHNlbnNNdWx0aXBsaWVyPjE8L3NlbnNNdWx0aXBsaWVyPgogIDxpbnZlcnRlZE1vdXNlSG9yPmZhbHNlPC9pbnZlcnRlZE1vdXNlSG9yPgogIDxpbnZlcnRlZE1vdXNlVmVydD5mYWxzZTwvaW52ZXJ0ZWRNb3VzZVZlcnQ+CiAgPGdyYXNzPnRydWU8L2dyYXNzPgogIDx0dXRvcmlhbD50cnVlPC90dXRvcmlhbD4KICA8Zm9yd2FyZD5XPC9mb3J3YXJkPgogIDxiYWNrd2FyZHM+UzwvYmFja3dhcmRzPgogIDxsZWZ0PkE8L2xlZnQ+CiAgPHJpZ2h0PkQ8L3JpZ2h0PgogIDxqdW1wPlNwYWNlPC9qdW1wPgogIDxzcHJpbnQ+TGVmdFNoaWZ0PC9zcHJpbnQ+CiAgPGludGVyYWN0PkU8L2ludGVyYWN0PgogIDxpbnZlbnRvcnk+VGFiPC9pbnZlbnRvcnk+CiAgPG1hcD5NPC9tYXA+CiAgPGxlZnRDbGljaz5Nb3VzZTA8L2xlZnRDbGljaz4KICA8cmlnaHRDbGljaz5Nb3VzZTE8L3JpZ2h0Q2xpY2s+CiAgPHNoYWRvd1F1YWxpdHk+Mjwvc2hhZG93UXVhbGl0eT4KICA8c2hhZG93UmVzb2x1dGlvbj4yPC9zaGFkb3dSZXNvbHV0aW9uPgogIDxzaGFkb3dEaXN0YW5jZT4yPC9zaGFkb3dEaXN0YW5jZT4KICA8c2hhZG93Q2FzY2FkZT4xPC9zaGFkb3dDYXNjYWRlPgogIDx0ZXh0dXJlUXVhbGl0eT4yPC90ZXh0dXJlUXVhbGl0eT4KICA8YW50aUFsaWFzaW5nPjE8L2FudGlBbGlhc2luZz4KICA8c29mdFBhcnRpY2xlcz50cnVlPC9zb2Z0UGFydGljbGVzPgogIDxibG9vbT4yPC9ibG9vbT4KICA8bW90aW9uQmx1cj5mYWxzZTwvbW90aW9uQmx1cj4KICA8YW1iaWVudE9jY2x1c2lvbj50cnVlPC9hbWJpZW50T2NjbHVzaW9uPgogIDxyZXNvbHV0aW9uPgogICAgPHg+MTQ0MDwveD4KICAgIDx5PjkwMDwveT4KICA8L3Jlc29sdXRpb24+CiAgPHJlZnJlc2hSYXRlPjE0NDwvcmVmcmVzaFJhdGU+CiAgPGZ1bGxzY3JlZW4+dHJ1ZTwvZnVsbHNjcmVlbj4KICA8ZnVsbHNjcmVlbk1vZGU+MDwvZnVsbHNjcmVlbk1vZGU+CiAgPHZTeW5jPjA8L3ZTeW5jPgogIDxmcHNMaW1pdD4xNDQ8L2Zwc0xpbWl0PgogIDx4cD4wPC94cD4KICA8bW9uZXk+MDwvbW9uZXk+CiAgPHZvbHVtZT40PC92b2x1bWU+CiAgPG11c2ljPjI8L211c2ljPgo8L1BsYXllclNhdmU+</pref>
+	<pref name="unity.player_session_count" type="string">Mg==</pref>
+	<pref name="unity.player_sessionid" type="string">NDczMjc3MjAxMjI0NjY4Njk3MA==</pref>
+</unity_prefs>

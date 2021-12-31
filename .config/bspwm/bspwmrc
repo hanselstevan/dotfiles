@@ -10,6 +10,7 @@ udiskie &
 #./.config/polybar/right.sh &
 
 #### MONITORS ####
+bspc monitor HDMI-1 -d 1 2 3 4 5
 bspc monitor HDMI-A-0 -d 1 2 3 4 5
 
 #### BSPWM configuration ####
