@@ -17,7 +17,7 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes"
 theme.wallpaper                                 = theme.dir .. "/wall.png"
-theme.font                                      = "Terminus 10.5"
+theme.font                                      = "JetBrainsMono NF 9.5"
 theme.fg_normal                                 = "#BBBBBB"
 theme.fg_focus                                  = "#78A4FF"
 theme.bg_normal                                 = "#111111"
@@ -55,7 +55,7 @@ theme.layout_max                                = theme.dir .. "/icons/max.png"
 theme.layout_fullscreen                         = theme.dir .. "/icons/fullscreen.png"
 theme.layout_magnifier                          = theme.dir .. "/icons/magnifier.png"
 theme.layout_floating                           = theme.dir .. "/icons/floating.png"
-theme.useless_gap                               = 6
+theme.useless_gap                               = 0
 theme.titlebar_close_button_focus               = theme.dir .. "/icons/titlebar/close_focus.png"
 theme.titlebar_close_button_normal              = theme.dir .. "/icons/titlebar/close_normal.png"
 theme.titlebar_ontop_button_focus_active        = theme.dir .. "/icons/titlebar/ontop_focus_active.png"
@@ -86,9 +86,12 @@ local red    = "#EB8F8F"
 local green  = "#8FEB8F"
 
 -- Textclock
---os.setlocale(os.getenv("LANG")) -- to localize the clock
-local mytextclock = wibox.widget.textclock("<span font='Terminus 5'> </span>%H:%M ")
-mytextclock.font = theme.font
+local clock = awful.widget.watch(
+    "date +'%a %d %b %I:%M '", 60,
+        function(widget, stdout)
+		        widget:set_markup(" " .. markup.font(theme.font, stdout))
+			    end
+			    )
 
 -- ALSA volume bar
 local volicon = wibox.widget.imagebox(theme.vol)
@@ -113,18 +116,17 @@ theme.volume = lain.widget.alsabar {
         unmute       = theme.fg_normal
     }
 }
-theme.volume.tooltip.wibox.fg = theme.fg_focus
 theme.volume.bar:buttons(my_table.join (
           awful.button({}, 1, function()
-            awful.spawn(string.format("%s -e alsamixer", awful.util.terminal))
+            os.execute(string.format("%s set %s toggle", theme.volume.cmd, theme.volume.togglechannel or theme.volume.channel))
+            theme.volume.update()
           end),
           awful.button({}, 2, function()
             os.execute(string.format("%s set %s 100%%", theme.volume.cmd, theme.volume.channel))
             theme.volume.update()
           end),
           awful.button({}, 3, function()
-            os.execute(string.format("%s set %s toggle", theme.volume.cmd, theme.volume.togglechannel or theme.volume.channel))
-            theme.volume.update()
+            awful.spawn(string.format("%s -e alsamixer", awful.util.terminal))
           end),
           awful.button({}, 4, function()
             os.execute(string.format("%s set %s 1%%+", theme.volume.cmd, theme.volume.channel))
@@ -189,11 +191,11 @@ function theme.at_screen_connect(s)
         -- s.mytasklist,
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
+            --wibox.widget.systray(),
+	    volicon,
+	    volumewidget,
             bar_spr,
-            volicon,
-            volumewidget,
-            mytextclock,
+            clock,
         },
     }
 end

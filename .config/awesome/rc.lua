@@ -93,7 +93,7 @@ local editor       = os.getenv("vim") or "nvim"
 local browser      = "firefox"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "1", "2", "3", "4", "5" }
+awful.util.tagnames = { "WEB", "MEET", "CODE", "CHAT", "GAME" }
 awful.layout.layouts = {
     awful.layout.suit.tile,
     awful.layout.suit.floating,
