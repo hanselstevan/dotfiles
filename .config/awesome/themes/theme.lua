@@ -20,15 +20,15 @@ theme.wallpaper                                 = theme.dir .. "/wall.png"
 theme.font                                      = "JetBrainsMono NF 9.5"
 theme.fg_normal                                 = "#BBBBBB"
 theme.fg_focus                                  = "#78A4FF"
-theme.bg_normal                                 = "#111111"
-theme.bg_focus                                  = "#111111"
+theme.bg_normal                                 = "#282828"
+theme.bg_focus                                  = "#282828"
 theme.fg_urgent                                 = "#000000"
 theme.bg_urgent                                 = "#FFFFFF"
-theme.border_width                              = dpi(1)
-theme.border_normal                             = "#141414"
-theme.border_focus                              = "#93B6FF"
+theme.border_width                              = dpi(2)
+theme.border_normal                             = "#282828"
+theme.border_focus                              = "#89B482"
 theme.taglist_fg_focus                          = "#FFFFFF"
-theme.taglist_bg_focus                          = "#111111"
+theme.taglist_bg_focus                          = "#282828"
 theme.taglist_bg_normal                         = "#111111"
 theme.titlebar_bg_normal                        = "#191919"
 theme.titlebar_bg_focus                         = "#262626"
@@ -82,8 +82,8 @@ theme.layout_centerwork                         = theme.dir .. "/icons/centerwor
 
 local markup = lain.util.markup
 local blue   = theme.fg_focus
-local red    = "#EB8F8F"
-local green  = "#8FEB8F"
+local red    = "#ea6962"
+local green  = "#a9b665"
 
 -- Textclock
 local clock = awful.widget.watch(
@@ -176,7 +176,7 @@ function theme.at_screen_connect(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "bottom", screen = s, height = dpi(18), bg = theme.bg_normal, fg = theme.fg_normal })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(18), bg = theme.bg_normal, fg = theme.fg_normal })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
