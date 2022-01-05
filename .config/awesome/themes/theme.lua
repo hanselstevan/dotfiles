@@ -16,7 +16,6 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes"
-theme.wallpaper                                 = theme.dir .. "/wall.png"
 theme.font                                      = "JetBrainsMono NF 9.5"
 theme.fg_normal                                 = "#BBBBBB"
 theme.fg_focus                                  = "#78A4FF"
@@ -74,6 +73,7 @@ theme.titlebar_maximized_button_focus_active    = theme.dir .. "/icons/titlebar/
 theme.titlebar_maximized_button_normal_active   = theme.dir .. "/icons/titlebar/maximized_noral_active.png"
 theme.titlebar_maximized_button_focus_inactive  = theme.dir .. "/icons/titlebar/maximized_focus_inactive.png"
 theme.titlebar_maximized_button_normal_inactive = theme.dir .. "/icons/titlebar/maximized_normal_inactive.png"
+gears.wallpaper.centered(theme.dir .. "/wall.png", s)
 
 -- lain related
 theme.layout_centerfair                         = theme.dir .. "/icons/centerfair.png"
