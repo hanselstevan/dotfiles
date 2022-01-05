@@ -30,8 +30,8 @@ theme.border_focus                              = "#89B482"
 theme.taglist_fg_focus                          = "#FFFFFF"
 theme.taglist_bg_focus                          = "#282828"
 theme.taglist_bg_normal                         = "#111111"
-theme.titlebar_bg_normal                        = "#191919"
-theme.titlebar_bg_focus                         = "#262626"
+theme.titlebar_bg_normal                        = "#282828"
+theme.titlebar_bg_focus                         = "#282828"
 theme.menu_height                               = dpi(16)
 theme.menu_width                                = dpi(130)
 theme.tasklist_disable_icon                     = true
@@ -113,7 +113,7 @@ theme.volume = lain.widget.alsabar {
     colors = {
         background   = theme.bg_normal,
         mute         = red,
-        unmute       = theme.fg_normal
+        unmute       = theme.border_focus,
     }
 }
 theme.volume.bar:buttons(my_table.join (
