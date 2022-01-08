@@ -7,6 +7,6 @@
 
 alias ls='ls -a --color=auto'
 alias la='ls -la --color=auto'
-alias neofetch='neofetch --source /home/hansel/.config/neofetch/arch.txt'
+alias neofetch='neofetch --source /home/hansel/.config/neofetch/cat.txt'
 PS1='[\u@\h \W]\$ '
-neofetch --source /home/hansel/.config/neofetch/arch.txt
+neofetch --source /home/hansel/.config/neofetch/cat.txt
