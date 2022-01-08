@@ -118,7 +118,7 @@ theme.volume = lain.widget.alsabar {
 }
 theme.volume.bar:buttons(my_table.join (
           awful.button({}, 1, function()
-            os.execute(string.format("%s set %s toggle", theme.volume.cmd, theme.volume.togglechannel or theme.volume.channel))
+            awful.spawn(string.format("%s -e alsamixer", awful.util.terminal))
             theme.volume.update()
           end),
           awful.button({}, 2, function()

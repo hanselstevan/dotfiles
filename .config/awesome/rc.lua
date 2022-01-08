@@ -85,7 +85,7 @@ awful.spawn.with_shell(
 -- {{{ Variable definitions
 
 local modkey       = "Mod1"
-local terminal     = "alacritty"
+local terminal     = "rofi-sensible-terminal"
 local vi_focus     = false -- vi-like client focus https://github.com/lcpz/awesome-copycats/issues/275
 local cycle_prev   = true  -- cycle with only the previously focused client or all https://github.com/lcpz/awesome-copycats/issues/274
 local editor       = os.getenv("vim") or "nvim"
@@ -274,10 +274,6 @@ globalkeys = mytable.join(
               {description = "swap with next client by index", group = "client"}),
     awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end,
               {description = "swap with previous client by index", group = "client"}),
-    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end,
-              {description = "focus the next screen", group = "screen"}),
-    awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,
-              {description = "focus the previous screen", group = "screen"}),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
     awful.key({ modkey,           }, "Tab",
@@ -336,6 +332,10 @@ globalkeys = mytable.join(
               {description = "increase master width factor", group = "layout"}),
     awful.key({ modkey, "Control" }, "h",     function () awful.tag.incmwfact(-0.05)          end,
               {description = "decrease master width factor", group = "layout"}),
+    awful.key({ modkey, "Control" }, "j",     function () awful.client.incwfact( 0.05)        end,
+              {description = "decrease master height factor", group = "layout"}),
+    awful.key({ modkey, "Control" }, "k",     function () awful.client.incwfact(-0.05)        end,
+              {description = "increase master height factor", group = "layout"}),
     awful.key({ modkey, "Control" }, "n", function ()
         local c = awful.client.restore()
         -- Focus restored client
@@ -597,10 +597,6 @@ client.connect_signal("request::titlebars", function(c)
             layout  = wibox.layout.flex.horizontal
         },
         { -- Right
-            -- awful.titlebar.widget.floatingbutton (c),
-            -- awful.titlebar.widget.maximizedbutton(c),
-            -- awful.titlebar.widget.stickybutton   (c),
-            -- awful.titlebar.widget.ontopbutton    (c),
             awful.titlebar.widget.closebutton    (c),
             layout = wibox.layout.fixed.horizontal()
         },
@@ -623,3 +619,4 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 ---------------
 awful.spawn.with_shell("picom --experimental-backends")
 awful.spawn.with_shell("nm-applet")
+awful.spawn.with_shell("udiskie")
