@@ -1,12 +1,6 @@
---[[
-
-     Copland Awesome WM theme 2.0
-     github.com/lcpz
-
---]]
-
 local gears = require("gears")
 local lain  = require("lain")
+local bling = require("bling")
 local awful = require("awful")
 local wibox = require("wibox")
 local dpi   = require("beautiful.xresources").apply_dpi
@@ -16,76 +10,39 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes"
-theme.font                                      = "JetBrainsMono NF 9.5"
+theme.font                                      = "JetBrainsMono NF 10"
+-- theme.taglist_font				= "JetBrainsMono NF 20"
 theme.fg_normal                                 = "#BBBBBB"
 theme.fg_focus                                  = "#78A4FF"
-theme.bg_normal                                 = "#282828"
-theme.bg_focus                                  = "#282828"
+theme.bg_normal                                 = "#343533"
+theme.bg_focus                                  = "#343533"
 theme.fg_urgent                                 = "#000000"
 theme.bg_urgent                                 = "#FFFFFF"
 theme.border_width                              = dpi(2)
-theme.border_normal                             = "#282828"
-theme.border_focus                              = "#89B482"
+theme.border_normal                             = "#343533"
+theme.border_focus                              = "#cf95b0"
 theme.taglist_fg_focus                          = "#FFFFFF"
-theme.taglist_bg_focus                          = "#282828"
+theme.taglist_bg_focus                          = "#343533"
 theme.taglist_bg_normal                         = "#111111"
-theme.titlebar_bg_normal                        = "#282828"
-theme.titlebar_bg_focus                         = "#282828"
+theme.titlebar_bg_focus                         = "#343533"
+theme.titlebar_bg_focus                         = "#343533"
 theme.menu_height                               = dpi(16)
 theme.menu_width                                = dpi(130)
 theme.tasklist_disable_icon                     = true
 theme.awesome_icon                              = theme.dir .."/icons/awesome.png"
-theme.menu_submenu_icon                         = theme.dir .. "/icons/submenu.png"
-theme.taglist_squares_sel                       = theme.dir .. "/icons/square_unsel.png"
-theme.taglist_squares_unsel                     = theme.dir .. "/icons/square_unsel.png"
-theme.vol                                       = theme.dir .. "/icons/vol.png"
-theme.vol_low                                   = theme.dir .. "/icons/vol_low.png"
-theme.vol_no                                    = theme.dir .. "/icons/vol_no.png"
-theme.vol_mute                                  = theme.dir .. "/icons/vol_mute.png"
-theme.layout_tile                               = theme.dir .. "/icons/tile.png"
-theme.layout_tileleft                           = theme.dir .. "/icons/tileleft.png"
-theme.layout_tilebottom                         = theme.dir .. "/icons/tilebottom.png"
-theme.layout_tiletop                            = theme.dir .. "/icons/tiletop.png"
-theme.layout_fairv                              = theme.dir .. "/icons/fairv.png"
-theme.layout_fairh                              = theme.dir .. "/icons/fairh.png"
-theme.layout_spiral                             = theme.dir .. "/icons/spiral.png"
-theme.layout_dwindle                            = theme.dir .. "/icons/dwindle.png"
-theme.layout_max                                = theme.dir .. "/icons/max.png"
-theme.layout_fullscreen                         = theme.dir .. "/icons/fullscreen.png"
-theme.layout_magnifier                          = theme.dir .. "/icons/magnifier.png"
-theme.layout_floating                           = theme.dir .. "/icons/floating.png"
-theme.useless_gap                               = 0
-theme.titlebar_close_button_focus               = theme.dir .. "/icons/titlebar/close_focus.png"
-theme.titlebar_close_button_normal              = theme.dir .. "/icons/titlebar/close_normal.png"
-theme.titlebar_ontop_button_focus_active        = theme.dir .. "/icons/titlebar/ontop_focus_active.png"
-theme.titlebar_ontop_button_normal_active       = theme.dir .. "/icons/titlebar/ontop_normal_active.png"
-theme.titlebar_ontop_button_focus_inactive      = theme.dir .. "/icons/titlebar/ontop_focus_inactive.png"
-theme.titlebar_ontop_button_normal_inactive     = theme.dir .. "/icons/titlebar/ontop_normal_inactive.png"
-theme.titlebar_sticky_button_focus_active       = theme.dir .. "/icons/titlebar/sticky_focus_active.png"
-theme.titlebar_sticky_button_normal_active      = theme.dir .. "/icons/titlebar/sticky_normal_active.png"
-theme.titlebar_sticky_button_focus_inactive     = theme.dir .. "/icons/titlebar/sticky_focus_inactive.png"
-theme.titlebar_sticky_button_normal_inactive    = theme.dir .. "/icons/titlebar/sticky_normal_inactive.png"
-theme.titlebar_floating_button_focus_active     = theme.dir .. "/icons/titlebar/floating_focus_active.png"
-theme.titlebar_floating_button_normal_active    = theme.dir .. "/icons/titlebar/floating_normal_active.png"
-theme.titlebar_floating_button_focus_inactive   = theme.dir .. "/icons/titlebar/floating_focus_inactive.png"
-theme.titlebar_floating_button_normal_inactive  = theme.dir .. "/icons/titlebar/floating_normal_inactive.png"
-theme.titlebar_maximized_button_focus_active    = theme.dir .. "/icons/titlebar/maximized_focus_active.png"
-theme.titlebar_maximized_button_normal_active   = theme.dir .. "/icons/titlebar/maximized_noral_active.png"
-theme.titlebar_maximized_button_focus_inactive  = theme.dir .. "/icons/titlebar/maximized_focus_inactive.png"
-theme.titlebar_maximized_button_normal_inactive = theme.dir .. "/icons/titlebar/maximized_normal_inactive.png"
-gears.wallpaper.centered(theme.dir .. "/wall.png", s)
+theme.layout_tile                               = theme.dir .. "/icons/awesome.png"
+theme.useless_gap                               = 6
+theme.titlebar_close_button_focus               = theme.dir .. "/icons/close.png"
+theme.titlebar_close_button_normal              = theme.dir .. "/icons/close.png"
+gears.wallpaper.maximized(theme.dir .. "/wallpaper.jpg", s)
 
--- lain related
-theme.layout_centerfair                         = theme.dir .. "/icons/centerfair.png"
-theme.layout_termfair                           = theme.dir .. "/icons/termfair.png"
-theme.layout_centerwork                         = theme.dir .. "/icons/centerwork.png"
 
 local markup = lain.util.markup
 local blue   = theme.fg_focus
 local red    = "#ea6962"
 local green  = "#a9b665"
 
--- Textclock
+-- date/clock
 local clock = awful.widget.watch(
     "date +'%a %d %b %I:%M '", 60,
         function(widget, stdout)
@@ -93,7 +50,7 @@ local clock = awful.widget.watch(
 			    end
 			    )
 
--- ALSA volume bar
+-- volume bar
 local volicon = wibox.widget.imagebox(theme.vol)
 theme.volume = lain.widget.alsabar {
     width = dpi(59), border_width = 0, ticks = true, ticks_size = dpi(6),
@@ -137,11 +94,12 @@ theme.volume.bar:buttons(my_table.join (
             theme.volume.update()
           end)
 ))
-local volumebg = wibox.container.background(theme.volume.bar, "#474747", gears.shape.rectangle)
-local volumewidget = wibox.container.margin(volumebg, dpi(2), dpi(7), dpi(4), dpi(4))
+local volume = wibox.container.margin(
+wibox.container.background(theme.volume.bar, "#474747", gears.shape.rectangle),
+dpi(8), dpi(8), dpi(8), dpi(7))
 
 -- Separators
-local bar_spr   = wibox.widget.textbox(markup.font("Terminus 3", " ") .. markup.fontfg(theme.font, "#777777", "|") .. markup.font("Terminus 5", " "))
+local spr   = wibox.widget.textbox(markup.font("Terminus 3", " ") .. markup.fontfg(theme.font, "#777777", "|") .. markup.font("Terminus 5", " "))
 
 function theme.at_screen_connect(s)
     -- Quake application
@@ -176,25 +134,27 @@ function theme.at_screen_connect(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(18), bg = theme.bg_normal, fg = theme.fg_normal })
+    s.mywibox = awful.wibar({ position = "top", ontop = true, screen = s, opacity = 0.9, height = dpi(28), bg = theme.bg_normal, fg = theme.fg_normal })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            s.mylayoutbox,
-            bar_spr,
+            -- s.mylayoutbox,
+            -- spr,
             s.mytaglist,
+	    -- spr,
         },
 	s.mypromptbox,
         -- s.mytasklist,
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            --wibox.widget.systray(),
-	    volicon,
-	    volumewidget,
-            bar_spr,
+            -- wibox.widget.systray(),
+	    -- spr,
+	    -- volicon,
+	    volume,
+            -- spr,
             clock,
         },
     }

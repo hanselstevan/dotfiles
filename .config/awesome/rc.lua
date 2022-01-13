@@ -1,10 +1,3 @@
---[[
-
-     Awesome WM configuration template
-     github.com/lcpz
-
---]]
-
 -- {{{ Required libraries
 
 -- If LuaRocks is installed, make sure that packages installed through it are
@@ -18,10 +11,11 @@ local wibox         = require("wibox")
 local beautiful     = require("beautiful")
 local naughty       = require("naughty")
 local lain          = require("lain")
+local bling         = require("bling")
 local menubar       = require("menubar")
 local freedesktop   = require("freedesktop")
 local hotkeys_popup = require("awful.hotkeys_popup")
---                      require("awful.hotkeys_popup.keys")
+                      require("awful.hotkeys_popup.keys")
 local mytable       = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 -- }}}
@@ -92,12 +86,11 @@ local editor       = os.getenv("vim") or "nvim"
 local browser      = "firefox"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "WEB", "MEET", "CODE", "CHAT", "GAME" }
+awful.util.tagnames = { " WEB", "CODE", "MEDIA", "SOCIAL", "GAMES" }
 awful.layout.layouts = {
     awful.layout.suit.tile,
-    awful.layout.suit.floating,
-    --awful.layout.suit.fair,
-    awful.layout.suit.max,
+    --awful.layout.suit.floating,
+    --awful.layout.suit.max,
 }
 
 lain.layout.termfair.nmaster           = 3
@@ -203,6 +196,7 @@ screen.connect_signal("property::geometry", function(s)
 end)
 
 -- No borders when rearranging only 1 non-floating or maximized client
+--[[
 screen.connect_signal("arrange", function (s)
     local only_one = #s.tiled_clients == 1
     for _, c in pairs(s.clients) do
@@ -213,6 +207,7 @@ screen.connect_signal("arrange", function (s)
         end
     end
 end)
+--]]
 -- Create a wibox for each screen and add it
 awful.screen.connect_for_each_screen(function(s) beautiful.at_screen_connect(s) end)
 
@@ -233,7 +228,7 @@ globalkeys = mytable.join(
     awful.key({ "Shift",          }, "space", function() naughty.destroy_all_notifications() end,
               {description = "destroy all notifications", group = "hotkeys"}),
     -- Show help
-    awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
+    awful.key({ modkey,           }, "F1",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     -- Tag browsing
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -336,6 +331,7 @@ globalkeys = mytable.join(
               {description = "decrease master height factor", group = "layout"}),
     awful.key({ modkey, "Control" }, "k",     function () awful.client.incwfact(-0.05)        end,
               {description = "increase master height factor", group = "layout"}),
+	      --[[
     awful.key({ modkey, "Control" }, "n", function ()
         local c = awful.client.restore()
         -- Focus restored client
@@ -343,7 +339,7 @@ globalkeys = mytable.join(
             c:emit_signal("request::activate", "key.unminimize", {raise = true})
         end
     end, {description = "restore minimized", group = "client"}),
-
+--]]
     -- User programs
     awful.key({ modkey }, "w", function () awful.spawn(browser) end,
               {description = "run browser", group = "hotkeys"}),
@@ -378,7 +374,7 @@ clientkeys = mytable.join(
         {description = "toggle fullscreen", group = "client"}),
     awful.key({ modkey,           }, "q",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
+    awful.key({ modkey,           }, "s",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
     awful.key({ modkey, "Shift"   }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
@@ -386,6 +382,7 @@ clientkeys = mytable.join(
               {description = "move to screen", group = "client"}),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
               {description = "toggle keep on top", group = "client"}),
+	      --[[
     awful.key({ modkey,           }, "n",
         function (c)
             -- The client currently has the input focus, so it cannot be
@@ -393,6 +390,7 @@ clientkeys = mytable.join(
             c.minimized = true
         end ,
         {description = "minimize", group = "client"}),
+	--]]
     awful.key({ modkey,           }, "m",
         function (c)
             c.maximized = not c.maximized
@@ -485,6 +483,43 @@ root.keys(globalkeys)
 -- {{{ Rules
 
 -- Rules to apply to new clients (through the "manage" signal).
+-- {{{ Swallow
+function is_terminal(c)
+    return (c.class and c.class:match("kitty")) and true or false
+end
+
+function copy_size(c, parent_client)
+    if not c or not parent_client then
+        return
+    end
+    if not c.valid or not parent_client.valid then
+        return
+    end
+    c.x=parent_client.x;
+    c.y=parent_client.y;
+    c.width=parent_client.width;
+    c.height=parent_client.height;
+end
+function check_resize_client(c)
+    if(c.child_resize) then
+        copy_size(c.child_resize, c)
+    end
+end
+
+client.connect_signal("property::size", check_resize_client)
+client.connect_signal("property::position", check_resize_client)
+client.connect_signal("manage", function(c)
+    if is_terminal(c) then
+        return
+    end
+    local parent_client=awful.client.focus.history.get(c.screen, 1)
+    if parent_client and is_terminal(parent_client) then
+        parent_client.child_resize=c
+        c.floating=true
+        copy_size(c, parent_client)
+    end
+end)
+--}}}
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
@@ -497,7 +532,16 @@ awful.rules.rules = {
                      screen = awful.screen.preferred,
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen,
                      size_hints_honor = false
-     }
+     },
+
+     -- Show titlebar only when window is floating
+     client.connect_signal("property::floating", function(c)
+    if c.floating then
+        awful.titlebar.show(c)
+    else
+        awful.titlebar.hide(c)
+    end
+end)
     },
 
     -- Floating clients.
@@ -533,7 +577,7 @@ awful.rules.rules = {
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
+      }, properties = { titlebars_enabled = false }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
@@ -617,6 +661,6 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 ---------------
 -- Autostart --
 ---------------
+awful.spawn.with_shell("pulseaudio --start")
 awful.spawn.with_shell("picom --experimental-backends")
-awful.spawn.with_shell("nm-applet")
 awful.spawn.with_shell("udiskie")
