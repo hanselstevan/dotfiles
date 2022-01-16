@@ -78,15 +78,15 @@ awful.spawn.with_shell(
 
 -- {{{ Variable definitions
 
-local modkey       = "Mod1"
-local terminal     = "rofi-sensible-terminal"
+local modkey       = "Mod4"
+local terminal     = "kitty"
 local vi_focus     = false -- vi-like client focus https://github.com/lcpz/awesome-copycats/issues/275
 local cycle_prev   = true  -- cycle with only the previously focused client or all https://github.com/lcpz/awesome-copycats/issues/274
 local editor       = os.getenv("vim") or "nvim"
-local browser      = "firefox"
+local browser      = "firefox-esr"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { " WEB", "CODE", "MEDIA", "SOCIAL", "GAMES" }
+awful.util.tagnames = { " WEB", "CODE", "MEDIA", "CHAT", "GAMES" }
 awful.layout.layouts = {
     awful.layout.suit.tile,
     --awful.layout.suit.floating,
@@ -228,7 +228,7 @@ globalkeys = mytable.join(
     awful.key({ "Shift",          }, "space", function() naughty.destroy_all_notifications() end,
               {description = "destroy all notifications", group = "hotkeys"}),
     -- Show help
-    awful.key({ modkey,           }, "F1",      hotkeys_popup.show_help,
+    awful.key({ modkey, "Shift"   }, "/",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     -- Tag browsing
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -310,7 +310,7 @@ globalkeys = mytable.join(
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "hotkeys"}),
-    awful.key({ modkey, "Control" }, "r", awesome.restart,
+    awful.key({ modkey, "Shift"   }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
@@ -341,18 +341,33 @@ globalkeys = mytable.join(
     end, {description = "restore minimized", group = "client"}),
 --]]
     -- User programs
+    awful.key({ modkey, "Shift" }, "a", function () awful.spawn("kitty -e ani-cli") end,
+              {description = "anime", group = "hotkeys"}),
     awful.key({ modkey }, "w", function () awful.spawn(browser) end,
               {description = "run browser", group = "hotkeys"}),
     awful.key({ modkey }, "d", function () awful.spawn("rofi -show drun") end,
               {description = "rofi drun", group = "hotkeys"}),
-    awful.key({ }, "Print", function () awful.spawn("flameshot full -c") end,
+    awful.key({ modkey }, "r", function () awful.spawn("rofi -show run") end,
+              {description = "rofi run", group = "hotkeys"}),
+    awful.key({ modkey }, "p", function () awful.spawn("rofi-power") end,
+              {description = "powermenu", group = "hotkeys"}),
+    awful.key({ modkey, "Shift" }, "s", function () awful.spawn("scrotv") end,
               {description = "screenshot", group = "hotkeys"}),
+    awful.key({ }, "XF86AudioRaiseVolume", function() awful.spawn("amixer -q set Master 5%+ unmute") end,
+              {description = "Volume up", group = "hotkeys"}),
+    awful.key({ }, "XF86AudioLowerVolume", function() awful.spawn("amixer -q set Master 5%- unmute") end,
+              {description = "Volume down", group = "hotkeys"}),
+    awful.key({ }, "XF86AudioMute", function() awful.spawn("amixer -q set Master toggle") end,
+              {description = "Mute volume", group = "hotkeys"}),
+    awful.key({ }, "XF86MonBrightnessUp", function() awful.spawn("dim 10") end,
+              {description = "Brightness max", group = "hotkeys"}),
+    awful.key({ }, "XF86MonBrightnessDown", function() awful.spawn("dim 5") end,
+              {description = "Brightness min", group = "hotkeys"}),
+    awful.key({ }, "XF86Eject", function() awful.spawn("dim 0") end,
+              {description = "Sleep", group = "hotkeys"}),
 
     -- Prompt
-    awful.key({ modkey }, "r", function () awful.screen.focused().mypromptbox:run() end,
-              {description = "run prompt", group = "hotkeys"}),
-
-    awful.key({ modkey }, "x",
+    awful.key({ modkey }, "Delete",
               function ()
                   awful.prompt.run {
                     prompt       = ">> Run lua code: ",
@@ -362,7 +377,6 @@ globalkeys = mytable.join(
                   }
               end,
               {description = "lua execute prompt", group = "awesome"})
-    --]]
 )
 
 clientkeys = mytable.join(
@@ -664,3 +678,4 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 awful.spawn.with_shell("pulseaudio --start")
 awful.spawn.with_shell("picom --experimental-backends")
 awful.spawn.with_shell("udiskie")
+awful.spawn.with_shell("xclip")
